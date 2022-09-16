@@ -10,14 +10,17 @@
     4. [사용](#사용)
 
 ---
-### 설치   
-```js
+
+### 설치
+
+```shell
     yarn add pinia
     or 
     npm install pinia
 ```
 
-### main.js 업데이트   
+### main.js 업데이트
+
 ```JavaScript
     import { createApp } from "vue";
     import { createPinia } from "pinia";
