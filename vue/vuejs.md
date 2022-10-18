@@ -1,14 +1,19 @@
 # Vuex
 
+## 목차
+1. [설치](#설치)
+2. [사용](#사용)
+---
 ## 설치
-> vue create 프로젝트_이름
-> Manually select features <-- 선택
-> Babel, Router, Vuex <- 선택
-> 3.x <-- 선택  
-> Use history mode for router? (Requires proper server setup for index fallback in production)(Y/n) <- Y   
-> In package.json <- 선택   
-> Save this as a preset for future projects? (y/N) <- N
-
+``` VueCli
+vue create 프로젝트_이름
+Manually select features <-- 선택
+Babel, Router, Vuex <- 선택
+3.x <-- 선택  
+Use history mode for router? (Requires proper server setup for index fallback in production)(Y/n) <- Y   
+In package.json <- 선택   
+Save this as a preset for future projects? (y/N) <- N
+```
 위의 순서대로 프로젝트를 vue cli를 사용하여 셋팅한다.
 
 ---
@@ -29,7 +34,6 @@ export default createStore({
   modules: {
   }
 })
-
 ```
 2. main.js 수정
 ```JavaScript
