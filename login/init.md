@@ -30,5 +30,7 @@
 
 # Pina 설치
 1. cd project_name
-2. mpn i pinia
-3. 
+2. npm i pinia 
+3. npm i axios <-- 통신 모듈
+
+
