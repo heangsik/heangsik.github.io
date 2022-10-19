@@ -19,7 +19,14 @@
                 driver-class-name : org.h2.Driver
                 username : sa
         ```
-
+5. 기본 id 및 password 설정
+   ``` YML
+   spring :
+        security :
+            user : 
+                name : user_name
+                passwrod : user_pass
+    ```
 # Vue 설정
 1. vue create project_name <-- 입력
 2. Manually select features <-- 선택
