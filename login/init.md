@@ -19,7 +19,7 @@
                 driver-class-name : org.h2.Driver
                 username : sa
         ```
-5. 기본 id 및 password 설정
+5. 로그인 기본 id 및 password 설정
    ``` YML
    spring :
         security :
