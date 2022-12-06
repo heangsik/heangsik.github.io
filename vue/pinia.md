@@ -1,13 +1,15 @@
 ![pinia](https://pinia.vuejs.org/logo.svg)
-# PINIA 
+### PINIA 
     [출처](https://velog.io/@sehyunny/advantages-of-pinia-vs-vuex)   
     [공홈](https://pinia.vuejs.org/)
 ---
 ### 목차   
-    1. [설치](#설치)   
-    2. [main.js 업데이트](#mainjs-업데이트)   
-    3. [store 파일 생성](#store-파일-생성)   
-    4. [사용](#사용)
+- [PINIA](#pinia)
+- [목차](#목차)
+- [설치](#설치)
+- [main.js 업데이트](#mainjs-업데이트)
+- [store 파일 생성](#store-파일-생성)
+- [사용](#사용)
 
 ---
 

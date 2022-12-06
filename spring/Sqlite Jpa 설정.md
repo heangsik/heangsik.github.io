@@ -2,11 +2,11 @@ Spring Boot Sqlite Jpa 사용
 ===
 목차
 ---
-
-[1. buildgradle에 sqlite jpa 추가](#1-buildgradle에-sqlite-jpa-추가)   
-[2. sqldialectjava 파일 생성](#2-sqldialectjava-파일-생성)   
-[3. applicationproperties 추가](#3-applicationproperties-추가)   
-
+- [Spring Boot Sqlite Jpa 사용](#spring-boot-sqlite-jpa-사용)
+  - [목차](#목차)
+  - [1. build.gradle에 sqlite jpa 추가](#1-buildgradle에-sqlite-jpa-추가)
+  - [2. SQLDialect.java 파일 생성](#2-sqldialectjava-파일-생성)
+  - [3. application.properties 추가](#3-applicationproperties-추가)
 ---
 
 ## 1. build.gradle에 sqlite jpa 추가
