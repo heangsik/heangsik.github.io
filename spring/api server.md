@@ -5,7 +5,7 @@
 ### 프로젝트 설정 파일 생성
 
 1. <https://start.spring.io/> 접속
-   ![Project](../image/spring_start.jpg)
+   ![Project](../image/spring_start.jpg)   
      + Gradle Project 선택
      + Java 선택
      + Group 입력
@@ -16,7 +16,7 @@
      + Pagcking Jar 선택
      + Java 11 선택
 2. Dependencies 추가
-   ![Dependencies](../image/2022-09-06%2011%2002%2021.jpg)   
+   ![Dependencies](../image/2022-09-06%2011%2002%2021.jpg)      
     + Spring Boot DevTools
     + Lombok
     + String Web
