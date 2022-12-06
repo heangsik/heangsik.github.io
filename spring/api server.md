@@ -16,7 +16,7 @@
      + Pagcking Jar 선택
      + Java 11 선택
 2. Dependencies 추가
-   ![Dependencies](../image/2022-09-06%2011%2002%2021.jpg)
+   ![Dependencies](../image/2022-09-06%2011%2002%2021.jpg)   
     + Spring Boot DevTools
     + Lombok
     + String Web
