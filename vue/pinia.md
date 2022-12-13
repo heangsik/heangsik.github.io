@@ -1,9 +1,13 @@
 ![pinia](https://pinia.vuejs.org/logo.svg)
-### PINIA 
+
+## PINIA
+
     [출처](https://velog.io/@sehyunny/advantages-of-pinia-vs-vuex)   
     [공홈](https://pinia.vuejs.org/)
 ---
-### 목차   
+
+## 목차
+
 - [PINIA](#pinia)
 - [목차](#목차)
 - [설치](#설치)
@@ -11,9 +15,10 @@
 - [store 파일 생성](#store-파일-생성)
 - [사용](#사용)
 
+
 ---
 
-### 설치
+## 설치
 
 ```shell
     yarn add pinia
@@ -21,7 +26,7 @@
     npm install pinia
 ```
 
-### main.js 업데이트
+## main.js 업데이트
 
 ```JavaScript
     import { createApp } from "vue";
@@ -32,7 +37,8 @@
     app.mount("#app");
 ```
 
-### store 파일 생성   
+## store 파일 생성
+
 ```JavaScript
     import { defineStore } from "pinia";
 
@@ -56,7 +62,8 @@
     });
 ```
 
-### 사용   
+## 사용
+
 ```JavaScript
     <script setup>
         import { useCounterStore } from "./stores/counter";
@@ -68,4 +75,5 @@
         <button @click="store.increment()">Increment</button>
     </template>
 ```
-#PINIA, #Vuex
+
+    #PINIA, #Vuex

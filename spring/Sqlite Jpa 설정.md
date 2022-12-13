@@ -1,21 +1,25 @@
-Spring Boot Sqlite Jpa 사용
-===
-목차
----
+# Spring Boot Sqlite Jpa 사용
+
+    목차
+
 - [Spring Boot Sqlite Jpa 사용](#spring-boot-sqlite-jpa-사용)
-  - [목차](#목차)
   - [1. build.gradle에 sqlite jpa 추가](#1-buildgradle에-sqlite-jpa-추가)
   - [2. SQLDialect.java 파일 생성](#2-sqldialectjava-파일-생성)
   - [3. application.properties 추가](#3-applicationproperties-추가)
+
 ---
 
 ## 1. build.gradle에 sqlite jpa 추가
+
 ```build
    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.40.0.0'
    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 ```
+
 ---
-## 2. SQLDialect.java 파일 생성   
+
+## 2. SQLDialect.java 파일 생성
+
 ```Java
 package kr.co.yhs.weather;
 
@@ -170,10 +174,12 @@ public class SQLDialect extends Dialect {
 }
 ---
 ```
+
 ## 3. application.properties 추가
+
 ```properties
 spring.jpa.database-platform=kr.co.yhs.weather.SQLDialect
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:sqlite:mydb.db
 spring.datasource.driver-class-name=org.sqlite.JDBC
-``` 
+```

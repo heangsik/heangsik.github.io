@@ -16,9 +16,8 @@
     }
 ```
 
-테스트를 해보니   
-http.csrf().disable();  
-http.headers().frameOptions().disable();  
+테스트를 해보니
+>http.csrf().disable();  
+>http.headers().frameOptions().disable();  
 
-이 주가지만 해줘도 되는듯 하다.
-
+이 두가지만 해줘도 되는듯 하다.
