@@ -24,7 +24,7 @@ NextJs 설정
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start -p 3030", // <-- p 테그 추가
-        "start:dev": "nest start --watch",
+        "start:dev": "nest start --watch ${PORT-3000}", // <-- 환경변수로 변경 가능
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
