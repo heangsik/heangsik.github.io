@@ -2,15 +2,17 @@
 
 ## 0. 목차
 
-[1. NodeJs 설치](#1-nodejs-설치)
-
-[2. 프로젝트 생성](#2-프로젝트-생성)
-
-[3. 프로젝트 디렉토리를 VsCode로 연다](#3-프로젝트-디렉토리를-vscode로-연다)
-
-[4. main.ts 파일에 포트를 변경 할수](#4-maints-파일에-포트를-변경-할수)
-
-[5. 프로젝트 디렉토리로 이동 후 VSCode로 해당 디렉토리를 연다](#5-프로젝트-디렉토리로-이동-후-vscode로-해당-디렉토리를-연다)
+- [NestJs 셋팅](#nestjs-셋팅)
+  - [0. 목차](#0-목차)
+  - [1. NodeJs 설치](#1-nodejs-설치)
+  - [2. 프로젝트 생성](#2-프로젝트-생성)
+  - [3. 프로젝트 디렉토리를 VsCode로 연다](#3-프로젝트-디렉토리를-vscode로-연다)
+  - [4. main.ts 파일에 포트를 변경 할수](#4-maints-파일에-포트를-변경-할수)
+  - [5. 프로젝트 디렉토리로 이동 후 VSCode로 해당 디렉토리를 연다](#5-프로젝트-디렉토리로-이동-후-vscode로-해당-디렉토리를-연다)
+  - [6. Create Movie Project](#6-create-movie-project)
+  - [7. 어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정](#7-어플리케이션-서비스-포트-변경-및-개발-상용-환경-설정)
+  - [9. Controller/Service 생성](#9-controllerservice-생성)
+  - [10. Validator 설치](#10-validator-설치)
 
 ## 1. NodeJs 설치
 
@@ -39,7 +41,7 @@
 
 > code .
 
-## 6. Movie Project
+## 6. Create Movie Project
 
 > nest new project_name  
 > cd movie_service  
@@ -120,6 +122,7 @@ bootstrap();
 > 입력 후 파일 생성 확인 movie/moive.service.ts
 
 - controller.ts
+
   ```TypeScript
     @Get(`/all`)
     movieList(): string {
@@ -127,3 +130,30 @@ bootstrap();
     }
 
   ```
+
+## 10. Validator 설치
+
+> npm i class-validator class-transform
+
+```TypeScript
+//main.ts 수정
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common'; // ##추가
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // 아래 내용 추가-----------------
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // 요청값을 dto로 변환
+      whitelist: true, // dto에 선언되지 않은 요청값은 제거
+      forbidNonWhitelisted: true, // whitelist:true 가 설정되어 있을경우 dto에 설정된 이외의 값이 들어올경우 오류를 낸다.
+      disableErrorMessages: true, // 디테일한 오류 메시지를 응답에서 뺀다.
+    }),
+  ),
+  // 위 내용 추가-------------------
+    await app.listen(3030);
+}
+bootstrap();
+```
