@@ -1,53 +1,43 @@
 # NestJs 셋팅
 
-## 0. 목차
+## 목차
 
 - [NestJs 셋팅](#nestjs-셋팅)
-  - [0. 목차](#0-목차)
-  - [1. NodeJs 설치](#1-nodejs-설치)
-  - [2. 프로젝트 생성](#2-프로젝트-생성)
-  - [3. 프로젝트 디렉토리를 VsCode로 연다](#3-프로젝트-디렉토리를-vscode로-연다)
-  - [4. main.ts 파일에 포트를 변경 할수](#4-maints-파일에-포트를-변경-할수)
-  - [5. 프로젝트 디렉토리로 이동 후 VSCode로 해당 디렉토리를 연다](#5-프로젝트-디렉토리로-이동-후-vscode로-해당-디렉토리를-연다)
-  - [6. Create Movie Project](#6-create-movie-project)
-  - [7. 어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정](#7-어플리케이션-서비스-포트-변경-및-개발-상용-환경-설정)
-  - [9. Controller/Service 생성](#9-controllerservice-생성)
-  - [10. Validator 설치](#10-validator-설치)
+  - [목차](#목차)
+  - [NodeJs 설치](#nodejs-설치)
+  - [프로젝트 생성](#프로젝트-생성)
+  - [프로젝트 디렉토리를 VsCode로 연다](#프로젝트-디렉토리를-vscode로-연다)
+  - [Create Movie Project](#create-movie-project)
+  - [어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정](#어플리케이션-서비스-포트-변경-및-개발-상용-환경-설정)
+  - [Controller/Service 생성](#controllerservice-생성)
+  - [Validator 설치](#validator-설치)
+  - [MAPPER 설치](#mapper-설치)
 
-## 1. NodeJs 설치
+## NodeJs 설치
 
 > https://nodejs.org/ko/download/ --> 이동 후 node 다운 후 설치  
 > npm i -g @nestjs/cli --> nestjs 설치
 
-## 2. 프로젝트 생성
+## 프로젝트 생성
 
 > nest new project_name --> 입력  
 > npm 선택  
 > cd project_name  
 > npm run start:dev
 
-## 3. 프로젝트 디렉토리를 VsCode로 연다
+## 프로젝트 디렉토리를 VsCode로 연다
 
 > code .
 
-## 4. main.ts 파일에 포트를 변경 할수
+---
 
-> npx create-next-app@latest --> 입력  
-> What is your projet named? --> 프로젝트 디렉토리 입력  
-> Would you like to use TypeScript with this project? --> 타입스크립트 사용 여부  
-> Would you like to use ESLint with this project? --> ESLint 사용여부
-
-## 5. 프로젝트 디렉토리로 이동 후 VSCode로 해당 디렉토리를 연다
-
-> code .
-
-## 6. Create Movie Project
+## Create Movie Project
 
 > nest new project_name  
 > cd movie_service  
 > npm run start:dev 실행
 
-## 7. 어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정
+## 어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정
 
 > npm i @nestjs/config 설치
 > npm i cross-env 설치
@@ -114,7 +104,7 @@ bootstrap();
   > npm run start:dev  
   > application server port : 7677 starting~~ <-- 확인
 
-## 9. Controller/Service 생성
+## Controller/Service 생성
 
 > root/nest g co Movie
 > 입력 후 파일 생성 확인 movie/movie.controller.ts
@@ -131,7 +121,7 @@ bootstrap();
 
   ```
 
-## 10. Validator 설치
+## Validator 설치
 
 > npm i class-validator class-transform
 
@@ -157,3 +147,33 @@ async function bootstrap() {
 }
 bootstrap();
 ```
+
+## MAPPER 설치
+
+> npm i mapped-types
+
+- 만약 npm ERR! ERESOLVE unable to resolve dependency tree 발생시
+  ```console
+    npm ERR! code ERESOLVE
+    npm ERR! ERESOLVE unable to resolve dependency tree
+    npm ERR!
+    npm ERR! While resolving: std_2@0.0.1
+    npm ERR! Found: class-validator@0.14.0
+    npm ERR! node_modules/class-validator
+    npm ERR!   class-validator@"^0.14.0" from the root project
+    npm ERR!   peerOptional class-validator@"*" from @nestjs/common@9.2.1
+    npm ERR!   node_modules/@nestjs/common
+    npm ERR!       @nestjs/mapped-types@"*" from the root project
+    npm ERR!
+    npm ERR! Could not resolve dependency:
+    npm ERR! peerOptional class-validator@"^0.11.1 || ^0.12.0 || ^0.13.0" from @nestjs/mapped-types@1.2.0
+    npm ERR! node_modules/@nestjs/mapped-types
+    npm ERR!   @nestjs/mapped-types@"*" from the root project
+    npm ERR!
+    npm ERR! A complete log of this run can be found in:
+  ```
+- 내용은 mapped가 class-validator를 0.11, 0.12, 0.13지원인데 0.14가 설치 되어 있어 설치 못한다.
+- 그리하여 호환되는 class-validator를 설치해야 한다.
+- 기존 class-validator 삭제 -> npm uninstall class-validator
+- 호환 class-validator 설치 -> npm i class-validator@0.13.0
+- 원하는 모듈 설치 -> npm i mapped-types
