@@ -14,6 +14,8 @@
   - [MAPPER 설치](#mapper-설치)
   - [Delete 'CR' eslint(prettier/prettier) 오류 처리](#delete-cr-eslintprettierprettier-오류-처리)
   - [TypeOrm Sqlite 셋팅](#typeorm-sqlite-셋팅)
+  - [응답전문에 값제거](#응답전문에-값제거)
+  - [패스워드 암호화](#패스워드-암호화)
 
 ## NodeJs 설치
 
@@ -215,3 +217,40 @@ bootstrap();
   })
   export class AppModule {}
   ```
+
+## 응답전문에 값제거
+
+- 응답전문에 특정값을 제거 하고자 할때 예) 유저정보중 패스워드 등
+
+  ```TypeScript
+    //entity 파일에 제거 하고자 하는 값에 Exclude 데코레이터를 단다.
+    @Entity()
+    export class User{
+      @Colummn()
+      UserId: string;
+      @Colummn()
+      UserAge: number;
+      @Colummn()
+      @Exculude() // <<---- 추가
+      Password: string;
+      constructor(partial: Partial<전달받는_Dto>) {
+        Object.assign(this, partial);
+      }
+    }
+  ```
+
+- 응답을
+
+  ```TypeScript
+    @UseInterceptors(ClassSerializerInterceptor) //<-- 응답을 반환하는 메서드에 붙인다.
+  ```
+
+- main.ts 추가
+  ```
+    app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  ```
+
+## 패스워드 암호화
+
+- npm i bcrypt @types/bcrypt 설치
+-
