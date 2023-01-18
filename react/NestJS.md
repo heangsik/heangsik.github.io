@@ -12,6 +12,8 @@
   - [Controller/Service 생성](#controllerservice-생성)
   - [Validator 설치](#validator-설치)
   - [MAPPER 설치](#mapper-설치)
+  - [Delete 'CR' eslint(prettier/prettier) 오류 처리](#delete-cr-eslintprettierprettier-오류-처리)
+  - [TypeOrm Sqlite 셋팅](#typeorm-sqlite-셋팅)
 
 ## NodeJs 설치
 
@@ -123,7 +125,7 @@ bootstrap();
 
 ## Validator 설치
 
-> npm i class-validator class-transform
+> npm i class-validator class-transformer
 
 ```TypeScript
 //main.ts 수정
@@ -177,3 +179,39 @@ bootstrap();
 - 기존 class-validator 삭제 -> npm uninstall class-validator
 - 호환 class-validator 설치 -> npm i class-validator@0.13.0
 - 원하는 모듈 설치 -> npm i mapped-types
+
+## Delete 'CR' eslint(prettier/prettier) 오류 처리
+
+- .prettierrc 파일에 "endOfLine": "auto" 추가
+
+## TypeOrm Sqlite 셋팅
+
+- 모듈 설치
+  ```scripts
+  npm i @nestjs/typeorm typeorm sqlite3
+  ```
+- app.module.ts 파일 수정
+
+  ```TypeScript
+
+  import { TypeOrmModule } from '@nestjs/typeorm'; //<< 추가
+  @Module({
+    imports: [
+      TypeOrmModule.forRoot({ //<< 추가 ----
+        type: 'mysql',
+        host: 'localhost',
+        port: 3306,
+        username: 'root',
+        password: '1234',
+        database: 'nest',
+        autoLoadEntities: true,
+        synchronize: true,
+        logging: true,
+      }),// << 추가 ----
+      ProductsModule,
+    ],
+    controllers: [],
+    providers: [],
+  })
+  export class AppModule {}
+  ```
