@@ -15,7 +15,6 @@
   - [Delete 'CR' eslint(prettier/prettier) 오류 처리](#delete-cr-eslintprettierprettier-오류-처리)
   - [TypeOrm Sqlite 셋팅](#typeorm-sqlite-셋팅)
   - [응답전문에 값제거](#응답전문에-값제거)
-  - [패스워드 암호화](#패스워드-암호화)
 
 ## NodeJs 설치
 
@@ -239,9 +238,9 @@ bootstrap();
     }
   ```
 
-- 응답을
+- 응답을 하는 메서드에 추가
 
-  ```TypeScript
+- ```TypeScript
     @UseInterceptors(ClassSerializerInterceptor) //<-- 응답을 반환하는 메서드에 붙인다.
   ```
 
@@ -253,4 +252,13 @@ bootstrap();
 ## 패스워드 암호화
 
 - npm i bcrypt @types/bcrypt 설치
--
+- ```JavaScript
+  import * as bcrypt from 'bcrypt';
+  async encript(oriMsg:string) : Promise<string>{
+    return await bcrypt.hash(oriMsg, 10);
+  }
+  ```
+
+```
+
+```

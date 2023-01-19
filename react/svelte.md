@@ -41,7 +41,7 @@
 - 설치
 
   ```
-    npm i -D tailwindcss postcss autoprefixer
+    npm i -D tailwindcss postcss autoprefixer daisyui
     npx tailwindcss init tailwind.config.cjs -p
   ```
 
@@ -53,7 +53,7 @@
     theme: {
       extend: {},
     },
-    plugins: [],
+    plugins: [require("daisyui")],
   };
   ```
 - styles.css 수정
