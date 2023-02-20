@@ -140,3 +140,60 @@ const Button = ({ color, size, children }) => {
 };
 export default Button;
 ```
+
+## AdorableCSS 설치
+
+- npm i -D adorable-css
+- vite.config.js 수정
+
+  ```js
+  import {adorableCSS} from "adorable-css/vite" // <-추가
+
+  export default defineConfig({
+    plugins: [adorableCSS(), ...] // <- plugin을 맨 처음에 등록합니다.
+  })
+  ```
+
+- \+layout.svelte 수정
+
+- ```TypeScript
+  <script>
+  	import Header from './Header.svelte';
+  	import './styles.css';
+  	import '@adorable.css'; //<- 추가
+  </script>
+  ```
+
+## CSS Animation ShutCmd
+
+```Css
+
+
+	@keyframes SlideSpin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+  .ani_span{/*숏컷 cmd 순서*/
+    animation: bounce 1s linear 2s infinite alternate ;
+    /*
+    animation-name: SlideSpin; //키프레임 이름
+    animation-duration: 5s; //에니메이션 진행 시간
+    animation-timing-function: linear;//움직이는 방법
+    animation-delay: 2s; //에니메이션 진행 전 대기 시간
+    animation-iteration-count: infinite;// 작동 횟수
+    animation-direction: alternate;//에니메이션 움직이는 방향
+
+
+    ease - 느리게 -> 빠르게 -> 느리게(기본설정)
+    linear - 항상 같은 속도
+    ease-in - 느리게 -> 빠르게
+    ease-out - 빠르게 -> 느리게
+    ease-in-out - 느리게 -> 빠르게 -> 느리게
+    cubic-bezier(n,n,n,n) - 사용자 시정
+    */
+  }
+```
