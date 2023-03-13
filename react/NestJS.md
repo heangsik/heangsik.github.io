@@ -14,7 +14,9 @@
   - [MAPPER 설치](#mapper-설치)
   - [Delete 'CR' eslint(prettier/prettier) 오류 처리](#delete-cr-eslintprettierprettier-오류-처리)
   - [TypeOrm Sqlite 셋팅](#typeorm-sqlite-셋팅)
+  - [TypeOrm 설정정보 파일로 빼기](#typeorm-설정정보-파일로-빼기)
   - [응답전문에 값제거](#응답전문에-값제거)
+  - [Todo](#todo)
 
 ## NodeJs 설치
 
@@ -65,7 +67,7 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [ConfigModule.forRoot({ // ## 변경
-    isGlobal: true, // ## 변경 다른 파일에서도 읽어 들일수 있게 설정,
+    isGlobal: true, // ## 변경  : 설정 정보를 다른 파일에서도 읽어 들일수 있게 설정,
     envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.prod', // 리얼과 개발 서버 설정 파일 처리
   })], // ## 변경
   controllers: [AppController],
@@ -111,7 +113,7 @@ bootstrap();
 
 > root/nest g co Movie
 > 입력 후 파일 생성 확인 movie/movie.controller.ts
-> root/nest go s Movie
+> root/nest g s Movie
 > 입력 후 파일 생성 확인 movie/moive.service.ts
 
 - controller.ts
@@ -217,6 +219,68 @@ bootstrap();
   export class AppModule {}
   ```
 
+## TypeOrm 설정정보 파일로 빼기
+
+- src/config/db.config.ts 생성
+  ```TypeScript
+    export const config = () => ({
+    app: {
+      port: +process.env.APP_SERVER_PORT,
+      name: process.env.APP_NAME,
+    },
+    db: {
+      name: process.env.DB_NAME,
+      type: process.env.DB_TYPE,
+      database: process.env.DB_DB,
+      synchronize: process.env.DB_SYNC === 'TRUE' ? true : false,
+      dropSchema: true,
+      logging: true,
+      entities: ['dist/**/*.entity.{js, ts}'],
+      // migrations: ['dist/migration/**/*.js'],
+      // subscribers: ['dist/subscriber/**/*.js'],
+    },
+  });
+  ```
+- 설정파일 수정(내용 추가)
+
+```.evn
+ APP_NAME="CRUD App"
+
+ DB_TYPE="sqlite"
+ DB_HOST="localhost"
+ DB_PORT=5432
+ DB_DB="crud.db"
+ DB_NAME="CRUD DB"
+ DB_SYNC="TRUE"
+```
+
+- app.module.ts 수정
+  ```TypeScript
+  import { Module } from '@nestjs/common';
+  import { AppController } from './app.controller';
+  import { AppService } from './app.service';
+  import { ConfigModule } from '@nestjs/config';
+  import { TypeOrmModule } from '@nestjs/typeorm';
+  import { config } from './config/config';
+  import { DatabaseConnectionService } from './database-connection.service';
+  @Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.prod',
+      load: [config], // <----추가
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: DatabaseConnectionService,
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+  })
+  export class AppModule {}
+  ```
+
 ## 응답전문에 값제거
 
 - 응답전문에 특정값을 제거 하고자 할때 예) 유저정보중 패스워드 등
@@ -257,6 +321,58 @@ bootstrap();
   async encript(oriMsg:string) : Promise<string>{
     return await bcrypt.hash(oriMsg, 10);
   }
+  ```
+
+```
+
+```
+
+## Todo
+
+- nest g res todo <-- 입력
+- todo.entity.ts 생성
+
+  ```TypeScript
+  import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+  } from "typeorm";
+  @Entity("TODO")
+  export class Todo extends BaseEntity {
+    constructor() {
+      super();
+    }
+    @PrimaryGeneratedColumn()
+    seq: number;
+    @Column()
+    todo: string;
+    @Column({ default: false })
+    checked: boolean;
+    @Column({ default: false })
+    deleted: boolean;
+    @CreateDateColumn()
+    createDt: Date;
+    @Column()
+    updateDt: Date;
+  }
+  ```
+
+- todo.module.ts 수정
+  ```TypeScript
+  import { Module } from '@nestjs/common';
+  import { TodoService } from './todo.service';
+  import { TodoController } from './todo.controller';
+  import { TypeOrmModule } from '@nestjs/typeorm';
+  import { Todo } from './entities/todo.entity';
+  @Module({
+  imports: [TypeOrmModule.forFeature([Todo])], //<---- 추가
+  controllers: [TodoController],
+  providers: [TodoService],
+  })
+  export class TodoModule {}
   ```
 
 ```
