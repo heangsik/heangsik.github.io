@@ -374,7 +374,19 @@ bootstrap();
   })
   export class TodoModule {}
   ```
+- todo.service.ts 수정
 
-```
+  - 레파지토리 추가
 
-```
+  ```TS
+
+  export class LoginService {
+    constructor(
+      // 아래 추가
+      @InjectRepository(Todo)
+      private todoRepository: Repository<Todo>,
+    ) {}
+
+    //..........
+  }
+  ```
