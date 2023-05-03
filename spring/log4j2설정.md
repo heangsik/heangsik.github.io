@@ -100,7 +100,13 @@
     config: file:./log4j2_local.yml <-- log4j2설정 파일
   ```
 - 구동시 vm값드로 넣기
-  ```
+
+  ```CMD
+  -- windows --
   java -jar api.jar --spring.config.location=file:./application.yml --logging.config=file:./log4j2_local.yml
+
+  -- linux --
+  java -jar api.jar -Dspring.config.location=file:./application.yml -Dlogging.config=file:./log4j2_local.yml
   ```
+
   applicaion.yml에서 logging.config값은 삭제 해야한다.
