@@ -18,5 +18,8 @@
 
 ## 명령어
 
-- yarn add package_name : 패키지 추가
 - yarn install : 패키지 재설치
+- yarn add package_name : 패키지 추가
+- yarn remove package_name : 패키지 삭제
+- yarn upgrade package_name : 패키지 업데이트
+-
