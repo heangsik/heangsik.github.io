@@ -4,9 +4,15 @@
 
 -   [몽고디비](#몽고디비)
     -   [목차](#목차)
-    -   [1. 계정 생성](#1-계정-생성)
+    -   [PODMAN 실행법](#podman-실행법)
+    -   [계정 생성](#계정-생성)
 
-## 1. 계정 생성
+## PODMAN 실행법
+
+-   MONGO_INITDB_ROOT_USERNAME=admin
+-   MONGO_INITDB_ROOT_PASSWORD=password
+
+## 계정 생성
 
 -   dev_user로 계정을 생성
 -   dev_dada로 데이타 베이스 권한 주기
