@@ -181,36 +181,30 @@
         ```
 
     -   Client
+
         -   클라이언트에서 가져오면 문제가 있을수 있으니 서버에서 넘기는 걸로 하는게 좋다.
 
-    ```JavaScript
-    // layout.js
-    "use client";
+        ```JavaScript
+        // layout.js
+        "use client";
 
-       import { SessionProvider } from "next-auth/react";
+           import { SessionProvider } from "next-auth/react";
 
-       export default function Layout({ children }) {
-          return <SessionProvider>{children}</SessionProvider>;
-       }
+           export default function Layout({ children }) {
+              return <SessionProvider>{children}</SessionProvider>;
+           }
 
-       // page.js
-       "use client";
+           // page.js
+           "use client";
+           import { useSession } from "next-auth/react";
 
-       import { useSession } from "next-auth/react";
+           export default function page(props) {
+              let session = useSession();
+              console.log(session, new Date());
+              return <div>클라이언트 세션</div>;
+           }
 
-       const ClientSession = async (props) => {
-          let session = useSession();
-          if (session) {
-             console.log(session);
-          }
-          return (
-             <div>
-                   <div>클라이언트 세션</div>
-             </div>
-          );
-       };
-       export default ClientSession;
-    ```
+        ```
 
 ### 4.세션 id/pass 방식
 
