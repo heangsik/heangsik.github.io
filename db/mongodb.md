@@ -6,6 +6,7 @@
     -   [목차](#목차)
     -   [PODMAN 실행법](#podman-실행법)
     -   [계정 생성](#계정-생성)
+    -   [계정확인](#계정확인)
 
 ## PODMAN 실행법
 
@@ -39,13 +40,13 @@
 
     ```
         -- 몽고쉘 실행(MongoShell)
-        db.grant({
-            user:"계정",
-            db:"데이터베이스",
-            roles: [{
-                role: "readWrite",
-                db: "데이터베이스"
-            }]
-        })
-
+        db.grantRolesToUser("user_id", [ { role: "readWrite", db: "데이터베이스" } ])
     ```
+
+## 계정확인
+
+```
+- 몽고쉘
+- show users -> 등록된 전체 유저 확인
+- db.getUsers() -> 위와 똑같은 결과가 나옴
+```
