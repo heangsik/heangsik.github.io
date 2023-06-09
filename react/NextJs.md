@@ -1,16 +1,17 @@
 # NextJs
 
--   [NextJs](#nextjs)
-    -   [NextJs 설정](#nextjs-설정)
-    -   [NextJs 환경 셋팅](#nextjs-환경-셋팅)
-        -   [1. 프로젝트 생성](#1-프로젝트-생성)
-        -   [2. 구동 포트 변경](#2-구동-포트-변경)
-    -   [Apple 강좌](#apple-강좌)
-    -   [NextAuth 활용](#nextauth-활용)
-        -   [1.깃허브 OAuth설정](#1깃허브-oauth설정)
-        -   [2.설치](#2설치)
-        -   [3.소셜 로그인(GitHub)](#3소셜-로그인github)
-        -   [4.세션 id/pass 방식](#4세션-idpass-방식)
+- [NextJs](#nextjs)
+  - [NextJs 설정](#nextjs-설정)
+  - [NextJs 환경 셋팅](#nextjs-환경-셋팅)
+    - [1. 프로젝트 생성](#1-프로젝트-생성)
+    - [2. 구동 포트 변경](#2-구동-포트-변경)
+  - [Apple 강좌](#apple-강좌)
+  - [NextAuth 활용](#nextauth-활용)
+    - [1.깃허브 OAuth설정](#1깃허브-oauth설정)
+    - [2.설치](#2설치)
+    - [3.소셜 로그인(GitHub)](#3소셜-로그인github)
+    - [4.세션 id/pass 방식](#4세션-idpass-방식)
+    - [5.Custom LoginPage](#5custom-loginpage)
 
 ## NextJs 설정
 
@@ -300,4 +301,126 @@
      };
 
      export default NextAuth(authOptions);
+    ```
+
+### 5.Custom LoginPage
+
+-   Login페이지 작성
+
+    ```JavaScript
+    //login page
+    "use client";
+    import { signIn } from "next-auth/react";
+    import { useRouter } from "next/navigation";
+
+    export default function SignIn(props) {
+       const router = useRouter();
+       const login = async (e) => {
+          e.preventDefault(); // 기본 submit 이벤트를 막는다.
+          const id = e.target.id.value;
+          const password = e.target.password.value;
+          try {
+                const response = await signIn("id_password_credentials", { // 나중에 추가될 [...nextauth].js 파일에 CredentialsProvider항목에 선언된 id 이다.
+                   id,  //[...nextauth].js의 credentials에 동일한 이름으로 들어가니 잘 체크 해야 한다.
+                   password,
+                   redirect: false,
+                   callbackUrl: "http://localhost:3000/weather", // 로그인 성공 후 이동될 url 이다.
+                });
+                console.log("login response=", response);
+                router.push(response.url); // 로그인 완료 후 라우팅
+          } catch (error) {
+                console.log(error);
+          }
+       };
+       return (
+          <div>
+                <div>SignIn</div>
+                <div>
+                   <form onSubmit={login}>
+                      <label>
+                            id :
+                            <input type="id" name="id" placeholder="user id" />
+                      </label>
+                      <label>
+                            비밀번호 :
+                            <input type="password" name="password" />
+                      </label>
+                      <button type="submit">로그인</button>
+                   </form>
+                </div>
+          </div>
+       );
+    }
+    ```
+
+-   로그인 기능 추가
+
+    ```JavaScript
+    import NextAuth from "next-auth";
+    import CredentialsProvider from "next-auth/providers/credentials";
+    import { getCollection, getDbConn } from "@/app/common/DbConnector";
+    import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+    import bcrypt from "bcrypt";
+    export const authOptions = {
+       providers: [
+          CredentialsProvider({
+                name: "Credentials",
+                type: "credentials",
+                id: "id_password_credentials", // 로그인 페이지에 signIn 함수에 첫번째 파라메터
+                // 로그인시 실행 되는곳 로그인 페이지 signIn
+                async authorize(credentials) {
+                   try {
+                      console.log("login request:", credentials);
+                      const usersCol = await getCollection("dev_db", "users");
+                      let user = await usersCol.findOne({ user_id: credentials.id });
+                      console.log("user=", user);
+                      if (!user) {
+                            console.log("해당 유저 없음 id=", credentials.id);
+                            throw new Error("해당 유저 없음");
+                      }
+                      console.log(user.password);
+                      const pwcheck = await bcrypt.compare(credentials.password, user.password);
+                      if (!pwcheck) {
+                            console.log("비번오류");
+                            throw new Error("비번오류");
+                      }
+                      return user;
+                   } catch (error) {
+                      console.log(error);
+                      throw error;
+                   }
+                },
+          }),
+       ],
+       pages: {
+          signIn: "/login/signin", // signIn호출시 표현될 페이지
+       },
+       session: {
+          strategy: "jwt",
+          maxAge: 30 * 24 * 60 * 60, // 30일 * 24시간 * 60분 * 60초
+       },
+       callbacks: {
+          jwt: async (token, user) => {
+                if (user) {
+                   token.user = {};
+                   token.user.name = user.name;
+                   token.user.email = user.email;
+                   token.user.role = user.role;
+                }
+                return token;
+          },
+          session: async ({ session, token }) => {
+                session.user = token.user;
+                return session;
+          },
+          signIn: async ({ user, account, profile, email, credentials }) => {
+                return true;
+          },
+       },
+       secret: "yhsJWT123!@#",
+       adapter: MongoDBAdapter(getDbConn()),
+    };
+
+    export default NextAuth(authOptions);
+
     ```
