@@ -1,5 +1,17 @@
 # React 팁
 
+- [React 팁](#react-팁)
+  - [참고 주소](#참고-주소)
+  - [useEffect](#useeffect)
+  - [리스트 추가시 스크롤바 가장 아래로](#리스트-추가시-스크롤바-가장-아래로)
+  - [props초기값 설정](#props초기값-설정)
+  - [props 한꺼번에 전달](#props-한꺼번에-전달)
+  - [하위 컴포넌트에 children으로 전달](#하위-컴포넌트에-children으로-전달)
+
+## 참고 주소
+
+-   https://react-ko.dev/
+
 ## useEffect
 
 -   기본 사용법
@@ -78,4 +90,68 @@
       // 스크롤바를 제어하기 위한 div
       <div ref={scroolRef}></div>
     </div>)
+```
+
+## props초기값 설정
+
+```JS
+  import React, { useState } from 'react';
+
+  function Time({ defaultDate, message }) {
+    //..code
+  }
+
+  Time.defaultProps = {
+    message: 'not send'
+  };
+
+  export default Time;
+
+```
+
+## props 한꺼번에 전달
+
+```JS
+  const timeProps = {
+    defaultDate: today,
+    message: '지금 시간은?'
+  };
+
+  function App() {
+    return (
+      <div className="App">
+        <AppHeader />
+        <header className="App-header">
+          <Time {...timeProps} />
+        </header>
+        <AppFooter />
+      </div>
+    );
+  }
+```
+
+## 하위 컴포넌트에 children으로 전달
+
+```JS
+  import Outer from './Outer';
+  function App() {
+    // 루트 컴포넌트
+    return (
+      <div className="App">
+        <Outer>
+          <Time />
+        </Outer>
+      </div>
+    );
+  }
+
+  const Outer = function({children}) {
+	return (
+		<div style={{ padding : 20px, backgroundColor : '#ffeaa7'}}>
+			{children} // Time컴포넌트에 이렇게 전달 가능하다.
+		</div>
+	);
+}
+
+export default Outer;
 ```

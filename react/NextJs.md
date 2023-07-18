@@ -1,31 +1,31 @@
 # NextJs
 
--   [NextJs](#nextjs)
-    -   [NextJs 설정](#nextjs-설정)
-    -   [NextJs 환경 셋팅](#nextjs-환경-셋팅)
-        -   [1. 프로젝트 생성](#1-프로젝트-생성)
-        -   [2. 구동 포트 변경](#2-구동-포트-변경)
-    -   [Apple 강좌](#apple-강좌)
-    -   [NextAuth 활용](#nextauth-활용)
-        -   [1.깃허브 OAuth설정](#1깃허브-oauth설정)
-        -   [2.설치](#2설치)
-        -   [3.소셜 로그인(GitHub)](#3소셜-로그인github)
-        -   [4.세션 id/pass 방식](#4세션-idpass-방식)
-        -   [5.Custom LoginPage](#5custom-loginpage)
-    -   [Recoil 설정](#recoil-설정)
-        -   [1. 설치](#1-설치)
-    -   [Recoil 설정](#recoil-설정-1)
-        -   [1. 설치](#1-설치-1)
-        -   [2. 사용](#2-사용)
+- [NextJs](#nextjs)
+  - [NextJs 설정](#nextjs-설정)
+  - [NextJs 환경 셋팅](#nextjs-환경-셋팅)
+    - [1. 프로젝트 생성](#1-프로젝트-생성)
+    - [2. 구동 포트 변경](#2-구동-포트-변경)
+    - [3. SWR 설정](#3-swr-설정)
+    - [4. ServerAction](#4-serveraction)
+  - [Apple 강좌](#apple-강좌)
+  - [NextAuth 활용](#nextauth-활용)
+    - [1.깃허브 OAuth설정](#1깃허브-oauth설정)
+    - [2.설치](#2설치)
+    - [3.소셜 로그인(GitHub)](#3소셜-로그인github)
+    - [4.세션 id/pass 방식](#4세션-idpass-방식)
+    - [5.Custom LoginPage](#5custom-loginpage)
+  - [Recoil 설정](#recoil-설정)
+    - [1. 설치](#1-설치)
+    - [2. 사용](#2-사용)
 
 ## NextJs 설정
 
-1. nodejs 설치
-2. npx create-next-app project_name --typescript 입력
-3. cd project_name
-4. npm run dev
-5. 구동 포트 변경  
-   main.ts
+1.  nodejs 설치
+2.  npx create-next-app project_name --typescript 입력
+3.  cd project_name
+4.  npm run dev
+5.  구동 포트 변경  
+    main.ts
 
     ```typescript
     import { NestFactory } from "@nestjs/core";
@@ -58,10 +58,10 @@
     },
     ```
 
-6. daisyUI 설치
+6.  daisyUI 설치
 
-    - npm i -D daisyui@latest
-    - 설정정보 업데이트(tailwind.config.js)
+    -   npm i -D daisyui@latest
+    -   설정정보 업데이트(tailwind.config.js)
 
         ```JavaScript
         // tailwind.config.js
@@ -71,6 +71,50 @@
         };
 
         ```
+
+7.  TailWind Plugin 설치
+    -   Typography
+        > npm i -D @tailwindcss/typography
+    ```JS
+    //tailwind.config.js
+    module.exports = {
+    theme: {
+       // ...
+    },
+    plugins: [
+       require('@tailwindcss/typography'),
+       // ...
+    ],
+    }
+    ```
+    -   Forms
+        > npm i -D @tailwindcss/forms
+    ```JS
+    //tailwind.config.js
+    module.exports = {
+    theme: {
+       // ...
+    },
+    plugins: [
+       require('@tailwindcss/forms'),
+       // ...
+    ],
+    }
+    ```
+    -   Aspect ratio
+        > npm i -D @tailwindcss/aspect-ratio
+    ```JS
+    //tailwind.config.js
+    module.exports = {
+    theme: {
+       // ...
+    },
+    plugins: [
+       require('@tailwindcss/aspect-ratio'),
+       // ...
+    ],
+    }
+    ```
 
 ## NextJs 환경 셋팅
 
@@ -97,6 +141,56 @@
      "lint": "next lint"
  }
 ```
+
+### 3. SWR 설정
+
+-   설치
+    > npm i swr
+-   fetcher 함수 만들기
+
+    ```JS
+    const fetcher = (...args) => fetch(...args).then(res=>res.json());
+    ```
+
+    ### 4. AXIOS 설치
+
+    -   설치
+        > npm i axios @types/axios
+
+### 4. ServerAction
+
+-   설정파일
+    ```JS
+    // next.config.js
+    module.exports = {
+        experimental: {
+           serverActions: true,
+        },
+     };
+    ```
+-   사용법
+
+    ```JS
+       export default async function Sample() {
+
+          //3. 서버기능만들었음
+          async function handleSubmit(formData) {
+             'use server'; // <-- 필수
+             // 여기에서 DB조회 등을 처리하면 된다.
+             console.log(formData)
+             console.log(formData.get('title'))
+          }
+
+
+          //2.폼만들었음
+          return (
+             <form action={handleSubmit}>
+                <input type="text" name="title" />
+                <button type="submit">Submit</button>
+             </form>
+          );
+       }
+    ```
 
 ## Apple 강좌
 
@@ -443,12 +537,6 @@
     export default NextAuth(authOptions);
 
     ```
-
-## Recoil 설정
-
-### 1. 설치
-
-    npm i @reduxjs/toolkit
 
 ## Recoil 설정
 
