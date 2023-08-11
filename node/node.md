@@ -13,3 +13,7 @@
     src/ 하위를 모니터링
 
     src/index.js를 구동함
+
+## Simple Json Server
+
+-   npx json-server --port 9999 --watch db.json

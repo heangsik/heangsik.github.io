@@ -7,6 +7,9 @@
     - [2. 구동 포트 변경](#2-구동-포트-변경)
     - [3. SWR 설정](#3-swr-설정)
     - [4. ServerAction](#4-serveraction)
+    - [DB연결](#db연결)
+      - [설치](#설치)
+      - [연결](#연결)
   - [Apple 강좌](#apple-강좌)
   - [NextAuth 활용](#nextauth-활용)
     - [1.깃허브 OAuth설정](#1깃허브-oauth설정)
@@ -145,11 +148,30 @@
 ### 3. SWR 설정
 
 -   설치
+
     > npm i swr
--   fetcher 함수 만들기
 
     ```JS
-    const fetcher = (...args) => fetch(...args).then(res=>res.json());
+
+      import useSWR from "swr";
+
+
+      const {data, error} = useSWR('/api/points', url => {    return fetch(url).then(res => res.json())  })
+
+      //-- OR ---
+
+      const fetcher = (...args) => fetch(...args).then(res=>res.json());
+      const {data, error} = useSWR('/api/points', fetcher);
+
+      // 위의 내용을 처리 후
+        if(error){
+            return <div>failed to load</div>
+         }
+         if(!data){
+            return <div>Loading..</div>
+         }
+         return <div>{data}</div>
+
     ```
 
     ### 4. AXIOS 설치
@@ -190,6 +212,95 @@
              </form>
           );
        }
+    ```
+
+### DB연결
+
+#### 설치
+
+> npm i mongodb
+
+#### 연결
+
+1. JavaScript
+
+    - DbConnector.js
+
+        ```JS
+           const { MongoClient } = require("mongodb");
+
+           const url = "mongodb://dev:dev@localhost:27017/";
+           const options = { useNewUrlParser: true };
+           let connDb;
+
+           const getDbConn = () => {
+              // 테스트 일경우만 한다.
+              // 개발중 저장시 리플레쉬가 생겨서 들어있는 코드 이다.
+              if (!global._mongo) {
+                 global._mongo = new MongoClient(url, options).connect();
+              }
+              connDb = global._mongo;
+              // console.log(connDb);
+              return connDb;
+           };
+
+           const getDb = async (dbName) => {
+              return (await getDbConn()).db(dbName);
+           };
+
+           const getCollection = async (dbName, collectionName) => {
+              return await (await getDb(dbName)).collection(collectionName);
+           };
+
+           export { getCollection, getDbConn };
+
+        ```
+
+2. TypeScript
+
+    - Global 셋팅(root/global.d.ts)
+
+    ```TS
+       import type { MongoClient } from "mongodb";
+
+       declare global {
+          namespace globalThis {
+             var _mongo: Promise<MongoClient>;
+          }
+       }
+
+    ```
+
+    - DbConnector (/app/util/DbConn.ts)
+
+    ```TS
+    const { MongoClient } = require("mongodb");
+
+       const url: string = "mongodb://dev:dev@localhost:27017/";
+       const options: any = { useNewUrlParser: true };
+       let connDb;
+
+       async function getDbConn(): Promise<any> {
+          if (!global._mongo) {
+             global._mongo = new MongoClient(url, options).connect();
+          }
+          connDb = global._mongo;
+          // console.log(connDb);
+          return connDb;
+       }
+
+       async function getDb(dbName: string): Promise<any> {
+          return (await getDbConn()).db(dbName);
+       }
+
+       async function getCollection(dbName: string) {
+          const getCollection = async (dbName: string, collectionName: string) => {
+             return await (await getDb(dbName)).collection(collectionName);
+          };
+       }
+
+       export { getCollection, getDbConn };
+
     ```
 
 ## Apple 강좌
