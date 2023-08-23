@@ -34,3 +34,4 @@
         org.hibernate.orm.jdbc.bind: trace
 
     ```
+    - 3버젼으로 업데이트 되면서 로깅 방법이 변경되었다.
