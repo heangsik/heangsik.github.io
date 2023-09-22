@@ -155,3 +155,9 @@
 
 export default Outer;
 ```
+## TypeScript React 한글 입력시 KeyDown, KeyUp Event 2번 발생
+- 원인 :
+
+  > 한글은 영문이나 숫자와는 다르게 여러개의 입력으로 문자가 완성이 된다.   
+  > 그리하여 이벤트가 발생 하여도 문자가 완성이 되지 않는 경우가 있다.
+  > 이때 event.nativeEvent.isComposing 상태가 true인 경우는 문자가 작성 중임으로 fale에 이벤트를 진행 하면 된다.

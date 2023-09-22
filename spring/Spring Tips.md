@@ -68,3 +68,39 @@
 |@DecimalMin(value=)|지정된 값(실수) 이상인가?|
 |@AssertFalse|false 인가?|
 |@AssertTrue|true 인가?|
+
+## SpringDoc 
+- build.gradle에 추가
+```
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+```
+- SwaggerConfigure.java 생성
+```Java
+package kr.co.yhs.authserver.config; // 위치는 알아서
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import org.springframework.context.annotation.Configuration;
+
+@OpenAPIDefinition(
+        info = @Info(title = "Auth Server Documentation",
+                description = "인증서버 명세",
+                version = "v1"))
+@Configuration
+public class SwaggerConfigure {
+
+}
+
+```
+-- Controller 상단에 annotaion 추가
+```Java
+    @Tag(name = "맴버 API", description = "Swagger 테스트용 API") // <--- 추가
+    @RestController
+    @RequestMapping("/api/v1/user")
+    @AllArgsConstructor
+    @Slf4j
+    public class MemberController {
+    }
+```
+- annotation 
+    -  https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations
