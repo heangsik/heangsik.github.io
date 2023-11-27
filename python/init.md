@@ -2,6 +2,10 @@
 
 - [Python Project Initialization](#python-project-initialization)
   - [1. 프로젝트 생성](#1-프로젝트-생성)
+  - [2. pip업데이트](#2-pip업데이트)
+  - [3. Streamlit](#3-streamlit)
+    - [설치](#설치)
+    - [구동](#구동)
 
 ## 1. 프로젝트 생성
 
@@ -31,4 +35,19 @@
 
   - **activate** -> 가상환경 사용 시작
   - 만약 가상환경에서 나오기 위해서는 **deactivate**를 입력 하면 된다.
-  -
+
+## 2. pip업데이트
+
+```
+python -m pip install --upgrade pip
+```
+
+## 3. Streamlit
+
+### 설치
+
+> pip install streamlit
+
+### 구동
+
+> streamlit run myfile.py

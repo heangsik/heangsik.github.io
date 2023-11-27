@@ -5,6 +5,7 @@
 - [SVELTE 셋팅](#svelte-셋팅)
   - [목차](#목차)
   - [프로젝트 설치](#프로젝트-설치)
+  - [포트 변경](#포트-변경)
   - [tailwind 설치](#tailwind-설치)
 
 ## 프로젝트 설치
@@ -17,6 +18,7 @@
     npm run dev
   ```
 - svelteKit
+
   ```
     npm init svelte@next project_name
     cd project_name
@@ -24,8 +26,15 @@
     npm run dev
   ```
 
-````
-
+- vite
+  ```
+    npm create vite@latest project_name (enter)
+    Need to install the following packages:
+      create-vite@5.0.0
+    Ok to proceed? (y) (enter)
+    ? Select a framework: Svelte 선택
+    ? Select a variant: » SvelteKit 선택(이건 알아서 해라)
+  ```
 
 ## 포트 변경
 
@@ -34,7 +43,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack serve --content-base public --port 5566"
   }
-````
+```
 
 ## tailwind 설치
 
