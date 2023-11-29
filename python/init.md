@@ -6,6 +6,12 @@
   - [3. Streamlit](#3-streamlit)
     - [설치](#설치)
     - [구동](#구동)
+  - [4. FastAPI](#4-fastapi)
+    - [설치](#설치-1)
+    - [실행](#실행)
+  - [logger](#logger)
+    - [설치](#설치-2)
+    - [사용](#사용)
 
 ## 1. 프로젝트 생성
 
@@ -19,9 +25,7 @@
 
 - python 가상환경 만들기
 
-  ```cmd
-    c:\project_1>python -m venv pro_api
-  ```
+  > c:\project_1>python -m venv pro_api
 
   - python -m venv -> 파이썬 모듈 중 venv를 사용한다.
   - pro_api -> 생성할 가상환경 이름
@@ -51,3 +55,25 @@ python -m pip install --upgrade pip
 ### 구동
 
 > streamlit run myfile.py
+
+## 4. FastAPI
+
+### 설치
+
+> pip install fastapi
+> pip install "uvicorn[standard]"
+
+### 실행
+
+> uvicorn main:app --reload --port=80
+
+## logger
+
+### 설치
+
+> pip install loguru
+
+### 사용
+
+> from loguru import logger
+> logger.infl("message")

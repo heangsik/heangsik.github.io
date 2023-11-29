@@ -7,6 +7,7 @@
   - [PODMAN 실행법](#podman-실행법)
   - [계정 생성](#계정-생성)
   - [계정확인](#계정확인)
+  - [접속 법](#접속-법)
 
 ## PODMAN 실행법
 
@@ -50,3 +51,7 @@
 - show users -> 등록된 전체 유저 확인
 - db.getUsers() -> 위와 똑같은 결과가 나옴
 ```
+
+## 접속 법
+
+> mongodb://{id}:{password}@localhost:27017/?authMechanism=DEFAULT
