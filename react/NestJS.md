@@ -44,7 +44,7 @@
 
 ## 어플리케이션 서비스 포트 변경 및 개발 상용 환경 설정
 
-> npm i @nestjs/config 설치
+> npm i @nestjs/config 설치  
 > npm i cross-env 설치
 
 - 파일 추가(루트디렉토리에 파일 생성 .env.dev or .evn.prod
@@ -111,9 +111,9 @@ bootstrap();
 
 ## Controller/Service 생성
 
-> root/nest g co Movie
-> 입력 후 파일 생성 확인 movie/movie.controller.ts
-> root/nest g s Movie
+> root/nest g co Movie  
+> 입력 후 파일 생성 확인 movie/movie.controller.ts  
+> root/nest g s Movie  
 > 입력 후 파일 생성 확인 movie/moive.service.ts
 
 - controller.ts
