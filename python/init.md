@@ -89,7 +89,8 @@ python -m pip install --upgrade pip
 
 ### 사용
 
-> from loguru import logger  
+> from loguru import logger
+>
 > logger.info("message")
 
 ## Test
