@@ -72,7 +72,8 @@ python -m pip install --upgrade pip
 ### 설치
 
 > pip install fastapi  
-> pip install "uvicorn[standard]"
+> pip install "uvicorn[standard]"  
+> pip list <- 설치 패키지 확인
 
 ### 실행
 
