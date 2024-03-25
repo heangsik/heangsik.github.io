@@ -18,3 +18,11 @@
 
 - npx json-server --port 9999 --watch db.json
 - 프로젝트 root에 db.json 파일을 따로 만들어야 함..
+
+## Simple web server
+
+- 설치
+  - npm i -g local-web-server
+  - g옵션을 글로벌 설치
+- 사용
+  - npx local-web-server
